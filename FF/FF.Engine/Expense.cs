@@ -1,14 +1,11 @@
-﻿namespace FF.Engine
-{
-    public sealed class Expense
-    {
-        public int Amount { get; }
-        public string Description { get; }
+﻿using System;
 
-        public Expense(int amount, string description)
+namespace FF.Engine
+{
+    public abstract class Expense : Payment
+    {
+        protected Expense(int amount, string description) : base(amount, description)
         {
-            Amount = amount;
-            Description = description;
         }
     }
 }
