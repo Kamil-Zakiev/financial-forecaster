@@ -6,7 +6,7 @@ namespace FF.Engine
 {
     internal class Forecaster : IForecaster
     {
-        public IEnumerable<Forecast> Forecast(IReadOnlyCollection<IPayment> payments, DateTime from, DateTime to)
+        public IEnumerable<Forecast> Forecast(IReadOnlyCollection<Payment> payments, DateTime from, DateTime to)
         {
             var date = from;
             while (date <= to)
@@ -14,7 +14,8 @@ namespace FF.Engine
                 Forecast? f = null;
                 foreach (var payment in payments)
                 {
-                    if (!payment.HappensOn(date))
+                    var (happens, amount) = payment.HappensOn(date);
+                    if (!happens)
                     {
                         continue;
                     }
@@ -25,8 +26,8 @@ namespace FF.Engine
                     };
                     var delta = payment switch
                     {
-                        Income income => income.Amount,
-                        Expense expense => -1 * expense.Amount,
+                        Income => amount,
+                        Expense => -1 * amount,
                         _ => throw new ArgumentOutOfRangeException(nameof(payment))
                     };
 

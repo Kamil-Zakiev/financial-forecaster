@@ -1,8 +1,9 @@
 ﻿namespace FF.Engine
 {
-    public abstract class Income : Payment
+    public class Income : Payment
     {
-        protected Income(int amount, string description) : base(amount, description)
+        public Income(int lumpSum, string description, IPaymentType paymentType) 
+            : base(lumpSum, description, paymentType)
         {
         }
     }

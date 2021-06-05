@@ -2,24 +2,23 @@
 
 namespace FF.Engine
 {
-    public abstract class Payment : IPayment
+    public abstract class Payment
     {
-        public int Amount { get; }
+        private readonly IPaymentType _paymentType;
+        protected int LumpSum { get; }
+        
         public string Description { get; }
 
-        protected Payment(int amount, string description)
+        protected Payment(int lumpSum, string description, IPaymentType paymentType)
         {
-            Amount = amount;
+            _paymentType = paymentType;
+            LumpSum = lumpSum;
             Description = description;
         }
 
-        public abstract bool HappensOn(DateTime date);
-    }
-
-    public interface IPayment
-    {
-        int Amount { get; }
-        string Description { get; }
-        bool HappensOn(DateTime date);
+        public (bool, int) HappensOn(DateTime date)
+        {
+            return _paymentType.HappensOn(date, LumpSum);
+        }
     }
 }
