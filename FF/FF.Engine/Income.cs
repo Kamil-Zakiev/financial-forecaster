@@ -1,14 +1,9 @@
 ﻿namespace FF.Engine
 {
-    public sealed class Income
+    public abstract class Income : Payment
     {
-        public int Amount { get; }
-        public string Description { get; }
-
-        public Income(int amount, string description)
+        protected Income(int amount, string description) : base(amount, description)
         {
-            Amount = amount;
-            Description = description;
         }
     }
 }
