@@ -17,7 +17,7 @@ namespace FF.Engine.UnitTests
 
         public ForecasterTests()
         {
-            _payments = new IPayment[]
+            _payments = new Payment[]
             {
                 Income1,
                 Income2,
@@ -30,13 +30,13 @@ namespace FF.Engine.UnitTests
 
         private static readonly Fixture Fixture = new();
         
-        private readonly IPayment[] _payments;
-        private static readonly CustomIncome Income1 = new(100, Day1, Day3);
-        private static readonly CustomIncome Income2 = new(200, Day1, Day4);
-        private static readonly CustomIncome Income3 = new(300, Day3, Day4, Day6);
-        private static readonly CustomExpense Expense1 = new(100, Day2, Day5);
-        private static readonly CustomExpense Expense2 = new(20, Day1, Day6);
-        private static readonly CustomExpense Expense3 = new(70, Day2, Day4, Day7);
+        private readonly Payment[] _payments;
+        private static readonly Income Income1 = new(100, "Income1", new CustomPaymentType(Day1, Day3));
+        private static readonly Income Income2 = new(200, "Income2", new CustomPaymentType(Day1, Day4));
+        private static readonly Income Income3 = new(300, "Income3", new CustomPaymentType(Day3, Day4, Day6));
+        private static readonly Expense Expense1 = new(100, "Expense1",  new CustomPaymentType(Day2, Day5));
+        private static readonly Expense Expense2 = new(20, "Expense2",  new CustomPaymentType(Day1, Day6));
+        private static readonly Expense Expense3 = new(70, "Expense3",  new CustomPaymentType(Day2, Day4, Day7));
 
         [Fact]
         public void Should_ReturnCorrectForecast_When_ProvidedPreparedAccountant()
@@ -58,7 +58,7 @@ namespace FF.Engine.UnitTests
             AssertNextBalance(280, Income3, Expense2);
             AssertNextBalance(-70, Expense3);
 
-            void AssertNextBalance(int expected, params IPayment[] payments)
+            void AssertNextBalance(int expected, params Payment[] payments)
             {
                 enumerator.MoveNext();
                 Assert.Equal(expected, enumerator.Current!.EodBalance);
@@ -74,33 +74,23 @@ namespace FF.Engine.UnitTests
             return new Forecaster();
         }
         
-        private sealed class CustomIncome : Income
+        private sealed class CustomPaymentType : IPaymentType
         {
             private readonly DateTime[] _happensOn;
 
-            public CustomIncome(int amount, params DateTime[] happensOn) : base(amount, Fixture.Create("Income"))
+            public CustomPaymentType(params DateTime[] happensOn)
             {
                 _happensOn = happensOn;
             }
 
-            public override bool HappensOn(DateTime date)
+            public (bool, int) HappensOn(DateTime date, int lumpSum)
             {
-                return _happensOn.Contains(date);
-            }
-        }
+                if (_happensOn.Contains(date))
+                {
+                    return (true, lumpSum);
+                }
 
-        private sealed class CustomExpense : Expense
-        {
-            private readonly DateTime[] _happensOn;
-
-            public CustomExpense(int amount, params DateTime[] happensOn) : base(amount, Fixture.Create("Expense"))
-            {
-                _happensOn = happensOn;
-            }
-
-            public override bool HappensOn(DateTime date)
-            {
-                return _happensOn.Contains(date);
+                return (false, default);
             }
         }
     }

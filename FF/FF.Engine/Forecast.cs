@@ -7,6 +7,6 @@ namespace FF.Engine
     {
         public DateTime Date { get; set; }
         public int EodBalance { get; set; }
-        public IReadOnlyCollection<IPayment> IncludedPayments { get; set; } = new List<IPayment>();
+        public IReadOnlyCollection<Payment> IncludedPayments { get; set; } = new List<Payment>();
     }
 }
