@@ -6,7 +6,9 @@ namespace FF.Engine
     {
         public static IServiceCollection AddAccountant(this IServiceCollection services)
         {
-            services.AddSingleton<IAccountant, Accountant>();
+            services
+                .AddSingleton<IAccountant, Accountant>()
+                .AddSingleton<IForecaster, Forecaster>();
             return services;
         }
     }

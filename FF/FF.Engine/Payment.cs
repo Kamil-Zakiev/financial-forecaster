@@ -2,7 +2,7 @@
 
 namespace FF.Engine
 {
-    public abstract class Payment
+    public abstract class Payment : IPayment
     {
         public int Amount { get; }
         public string Description { get; }
@@ -14,5 +14,12 @@ namespace FF.Engine
         }
 
         public abstract bool HappensOn(DateTime date);
+    }
+
+    public interface IPayment
+    {
+        int Amount { get; }
+        string Description { get; }
+        bool HappensOn(DateTime date);
     }
 }
