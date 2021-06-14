@@ -12,6 +12,7 @@ namespace FF.Engine
             while (date <= to)
             {
                 Forecast? f = null;
+                List<Payment>? includedPayments = null;
                 foreach (var payment in payments)
                 {
                     var (happens, amount) = payment.HappensOn(date);
@@ -33,14 +34,18 @@ namespace FF.Engine
 
                     f.EodBalance += delta;
 
-                    f.IncludedPayments = f.IncludedPayments.Concat(payments).ToArray();
+                    includedPayments ??= new List<Payment>();
+                    includedPayments.Add(payment);
                 }
                 date = date.AddDays(1);
 
-                if (f is not null)
+                if (f is null)
                 {
-                    yield return f;
+                    continue;
                 }
+                
+                f.IncludedPayments = includedPayments;
+                yield return f;
             }
         }
     }

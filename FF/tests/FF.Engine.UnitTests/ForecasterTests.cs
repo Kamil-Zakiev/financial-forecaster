@@ -48,7 +48,9 @@ namespace FF.Engine.UnitTests
             var forecasts = target.Forecast(_payments, Day1, Day7);
             
             // Assert
+            // ReSharper disable once PossibleMultipleEnumeration
             Assert.Equal(7, forecasts.Count());
+            // ReSharper disable once PossibleMultipleEnumeration
             using var enumerator = forecasts.GetEnumerator();
             AssertNextBalance(280, Income1, Income2, Expense2);
             AssertNextBalance(-170, Expense1, Expense3);
