@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FF.Engine", "FF.Engine\FF.E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FF.Engine.UnitTests", "tests\FF.Engine.UnitTests\FF.Engine.UnitTests.csproj", "{56AE02D8-C981-4848-AF60-AD6A7C2C2075}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FF.WebAPI", "FF.WebAPI\FF.WebAPI.csproj", "{817EF2B6-E313-4E2A-B82A-01815F373FB9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{56AE02D8-C981-4848-AF60-AD6A7C2C2075}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56AE02D8-C981-4848-AF60-AD6A7C2C2075}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56AE02D8-C981-4848-AF60-AD6A7C2C2075}.Release|Any CPU.Build.0 = Release|Any CPU
+		{817EF2B6-E313-4E2A-B82A-01815F373FB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{817EF2B6-E313-4E2A-B82A-01815F373FB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{817EF2B6-E313-4E2A-B82A-01815F373FB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{817EF2B6-E313-4E2A-B82A-01815F373FB9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

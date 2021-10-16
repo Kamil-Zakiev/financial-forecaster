@@ -71,6 +71,7 @@ namespace FF.Engine
             if (day >= 1 && day <= 28)
             {
                 Day = day;
+                return;
             }
 
             throw new ArgumentOutOfRangeException(nameof(day), day, "Incorrect day");
